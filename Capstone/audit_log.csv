@@ -1,0 +1,17 @@
+table,column,issue_type,rule,rows_affected,sample_values
+Claims_Fact,ClaimID,Duplicate Key,ClaimID must be unique,0,[]
+Provider_Master,ProviderID,Duplicate Key,ProviderID must be unique,0,
+Member_Master,MemberID,Duplicate Key,MemberID must be unique,0,
+Policy_Master,PolicyID,Duplicate Key,PolicyID must be unique,0,
+Claims_Fact,DischargeDate,Invalid Date Order,DischargeDate < AdmissionDate,0,"{'ClaimID': {}, 'AdmissionDate': {}, 'DischargeDate': {}}"
+Claims_Fact,SettlementDate,Invalid Date Order,SettlementDate < ClaimSubmissionDate,0,
+Claims_Fact,DischargeDate,Missing,DischargeDate is NULL,0,
+Claims_Fact,SettlementDate,Missing,SettlementDate is NULL,1234,
+Claims_Fact,ApprovedAmount,Invalid Amount,ApprovedAmount > ClaimedAmount,0,
+Claims_Fact,ClaimedAmount,Negative Amount,ClaimedAmount < 0,0,
+Claims_Fact,ClaimedAmount,Outlier,Z-score >= 3,0,
+Claims_Fact,ICDCode(s),Invalid Code,ICDCode not found in Diagnosis_Master,4789,"['CLM000001', 'CLM000004', 'CLM000005', 'CLM000009', 'CLM000010']"
+Claims_Fact,ICDCode(s),Invalid Code,ICDCode not found in Diagnosis_Master,4789,"['B20B|J18V', 'K35V|I21', 'G43E|C50G', 'A09F|S83', 'M17|G40']"
+Claims_Fact,ProcedureCode(s),Invalid Code,ProcedureCode not found in Procedure_Master,7175,
+Claims_Fact,ProcedureCode(s),Invalid Code,ProcedureCode not found in Procedure_Master,7175,"['PRC0090|PRC0025', 'PRC0102|PRC0017|PRC0074', 'PRC0087|PRC0096|PRC0038', 'PRC0120|PRC0022', 'PRC0018|PRC0084']"
+Claims_Fact,PolicyID,Invalid Coverage,Admission date outside policy period,9430,
